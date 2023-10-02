@@ -82,12 +82,12 @@ export default class JarvizGraph extends React.Component {
                     linkWidth={this.props.renderMode !== 'vr' ? (link) => (link === highlightLink ? 4 : 1) : 1}
                     nodeLabel={(node) => {
                         var html = '';
-                        if (!node.target) {
-                            html += '<p class="grid-item">App:</p><p class="grid-item">' + node.applicationName + '</p>';
-                            html += '<p class="grid-item">Artifact:</p><p class="grid-item">' + node.artifact + '</p>';
-                        }
+//                        if (!node.target) {
+                            //html += '<p class="grid-item">App:</p><p class="grid-item">' + node.applicationName + '</p>';
+                            html += '<p class="grid-item">Artifact:</p><p class="grid-item">' + node.name + '</p>';
+                        //}
 
-                        html += '<p class="grid-item">Methods:</p><p class="grid-item">' + node.couplingMethodUsages.join('<br />') + '</p>';
+                        //html += '<p class="grid-item">Methods:</p><p class="grid-item">' + node.couplingMethodUsages.join('<br />') + '</p>';
                         return html;
                     }}
                     linkLabel={(link) => {

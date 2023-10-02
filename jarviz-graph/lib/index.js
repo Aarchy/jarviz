@@ -101,8 +101,8 @@ function processData(dataPath, done) {
         let targetNodeId = `${applicationName}_${targetClass}_${targetMethod}`;
         if (groupBy === 'sourceClass-targetClass') {
             // Make source node id unique relative to it's target node
-            sourceNodeId = `${targetClass}_${artifactGroup}_${artifactId}`;
-            targetNodeId = `${targetClass}_${targetMethod}`;
+            sourceNodeId = `${sourceClass}`;
+            targetNodeId = `${targetClass}`;
         }
 
         const sourceNode = data.nodesMap[sourceNodeId];
@@ -165,13 +165,14 @@ function processData(dataPath, done) {
                 color: '#2E8484'
             };
         }
+        if (groupBy === 'sourceClass-targetClass') {
 
-        data.links.push({
-            source: sourceNodeId,
-            target: targetNodeId,
-            curvature: 0.1
-        });
-
+            data.links.push({
+                source: sourceNodeId,
+                target: targetNodeId,
+                curvature: 0.1
+            });
+        }
         // Increment summary data
         linesProcessed++;
     }

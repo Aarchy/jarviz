@@ -1,8 +1,9 @@
 {
   "include": {
-    "targetPackage": "^(com\\.google).*$"
+    "sourcePackage": "^(org\\.apache\\.phoenix).*$",
+    "targetPackage": "^(org\\.apache\\.phoenix).*$"
   },
   "exclude": {
-    "sourcePackage": "^(com\\.google).*$"
+    "targetPackage": "^(com\\.).*$"
   }
 }

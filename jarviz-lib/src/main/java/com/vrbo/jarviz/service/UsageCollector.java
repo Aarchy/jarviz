@@ -36,6 +36,8 @@ public class UsageCollector implements Collector {
     private static CouplingFilterConfig DEFAULT_COUPLING_FILTER = new CouplingFilterConfig.Builder().build();
 
     private final Multimap<Method, Method> methodRefMap;
+    private final Multimap<String, String> classRefMap;
+
 
     private final CouplingFilterConfig couplingFilterConfig;
 
@@ -51,12 +53,18 @@ public class UsageCollector implements Collector {
 
         this.couplingFilterConfig = couplingFilterConfig;
         this.methodRefMap = LinkedHashMultimap.create();
+        this.classRefMap = LinkedHashMultimap.create();
     }
 
     @Override
     public void collectMethodCoupling(final MethodCoupling coupling) {
         if (CouplingFilterUtils.filterMethodCoupling(couplingFilterConfig, coupling)) {
-            methodRefMap.put(coupling.getSource(), coupling.getTarget());
+            if (!this.classRefMap.containsEntry(
+                    coupling.getSource().getClassName(),
+                    coupling.getTarget().getClassName())) {
+                methodRefMap.put(coupling.getSource(), coupling.getTarget());
+            }
+            classRefMap.put(coupling.getSource().getClassName(), coupling.getTarget().getClassName());
         }
     }
 

@@ -34,8 +34,16 @@ module.exports = {
         path: path.join(__dirname, 'build/client'),
         filename: `jarviz-client.js`
     },
+    resolve: {
+  	  extensions: ['*', '.mjs', '.js', '.json']
+	},
     module: {
         rules: [
+        {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',

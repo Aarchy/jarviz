@@ -189,8 +189,8 @@ if [ ! -f "${JARVIZ_JAR_PATH}" ] ; then
 
     # Rename Jarviz artifact in ~/.jarviz to the format of jarviz_version.jar
     for f in "${JARVIZ_HOME}"/jarviz*.jar; do
-      printf "Copying to %s..." "${JARVIZ_JAR_PATH}"
-      mv "${f}" "${JARVIZ_JAR_PATH}"
+      printf "Copying ${f} to %s..." "${JARVIZ_JAR_PATH}"
+      cp "${f}" "${JARVIZ_JAR_PATH}"
       printf "Done\n"
     done
 fi
@@ -211,7 +211,9 @@ if [ ${jarviz_run_java_app} -gt 0 ] ; then
     # Step 1: Run Jarviz java artifact to generate dependency matrix (in .jsonl format)
     echo "Java: Running ${JARVIZ_JAR_PATH}"
 
-    if java -cp "${JARVIZ_JAR_PATH}" "com.vrbo.jarviz.AnalyzeCommand" "$@" -c "${JARVIZ_CONFIG_PATH}" -o "${JARVIZ_TEMP_JSONL}" ; then
+    echo "CP ${JARVIZ_CONFIG_PATH}"
+    # /home/ameszaros/utils/jarviz/jarviz-lib/target/jarviz-0.1.8-SNAPSHOT.jar
+    if java -cp "/home/ameszaros/utils/jarviz/jarviz-lib/target/jarviz-0.1.8-SNAPSHOT.jar" "com.vrbo.jarviz.AnalyzeCommand" "$@" -c "${JARVIZ_CONFIG_PATH}" -o "${JARVIZ_TEMP_JSONL}" ; then
       # Copy the files to actual output directory
       if [ -f "${JARVIZ_TEMP_JSONL}" ] ; then
           mkdir "${JARVIZ_OUT_DIR}"
